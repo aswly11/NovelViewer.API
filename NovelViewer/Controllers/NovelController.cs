@@ -64,7 +64,11 @@ namespace NovelViewer.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-
+            var Exist = _novelService.GetByIdAsNoTracking(id);
+            if (Exist == null)
+            {
+                return NotFound("Novel Not Found");
+            }
             _novelService.Delete(id);
             return Ok(id);
 
